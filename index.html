@@ -3,1131 +3,868 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Briefing Quinzenal — 3º Setor | TIME Captação</title>
+  <title>Briefing Quinzenal — 3º Setor | TIME Captação Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --azul:   #1a3a5c;
-      --laranja:#f4821e;
+      --azul: #1a3a5c;
+      --azul-medio: #1e4976;
+      --azul-claro: #2d6ca8;
+      --laranja: #f4821e;
+      --laranja-claro: #ffa54a;
       --branco: #ffffff;
-      --cinza:  #f8f9fa;
-      --cinza2: #e9ecef;
-      --texto:  #2d3748;
-      --sub:    #718096;
-      --sombra: 0 4px 20px rgba(26,58,92,0.10);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--cinza);
-      color: var(--texto);
-      line-height: 1.6;
+      --cinza: #f8f9fa;
+      --cinza-medio: #e9ecef;
+      --cinza-escuro: #6c757d;
+      --texto: #212529;
+      --sombra: 0 4px 20px rgba(26, 58, 92, 0.10);
+      --sombra-hover: 0 8px 32px rgba(26, 58, 92, 0.18);
     }
 
-    /* HEADER */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--cinza);
+      color: var(--texto);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
     header {
-      background: linear-gradient(135deg, var(--azul) 0%, #0d2540 100%);
+      background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 60%, var(--azul-claro) 100%);
       color: var(--branco);
-      padding: 48px 24px 40px;
+      padding: 56px 24px 48px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
+
     header::before {
-      content:'';
-      position:absolute;
-      top:-60px; right:-80px;
-      width:320px; height:320px;
-      border-radius:50%;
-      background: rgba(244,130,30,0.15);
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
     }
-    header::after {
-      content:'';
-      position:absolute;
-      bottom:-80px; left:-60px;
-      width:240px; height:240px;
-      border-radius:50%;
-      background: rgba(244,130,30,0.10);
-    }
+
     .header-badge {
-      display:inline-block;
-      background: var(--laranja);
-      color: var(--branco);
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      padding:4px 14px;
-      border-radius:20px;
-      margin-bottom:16px;
+      display: inline-block;
+      background: rgba(244, 130, 30, 0.25);
+      border: 1px solid rgba(244, 130, 30, 0.5);
+      color: var(--laranja-claro);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 20px;
     }
+
     header h1 {
-      font-size:clamp(24px,5vw,42px);
-      font-weight:800;
-      letter-spacing:-0.5px;
-      margin-bottom:8px;
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
     }
+
     header h1 span { color: var(--laranja); }
+
     header p.subtitle {
-      font-size:16px;
-      opacity:.85;
-      font-weight:500;
-      margin-bottom:6px;
+      font-size: 16px;
+      opacity: 0.80;
+      font-weight: 400;
+      margin-bottom: 6px;
     }
+
     header p.date {
-      font-size:13px;
-      opacity:.65;
+      font-size: 13px;
+      opacity: 0.60;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
 
-    /* NAV */
+    /* ─── NAV ─────────────────────────────────────────────────── */
     nav {
-      background: var(--branco);
-      border-bottom:3px solid var(--laranja);
-      position:sticky;
-      top:0;
-      z-index:100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      background: var(--azul);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.20);
     }
-    nav ul {
-      list-style:none;
-      display:flex;
-      gap:0;
-      overflow-x:auto;
-      max-width:1200px;
-      margin:0 auto;
-    }
-    nav ul li a {
-      display:block;
-      padding:14px 20px;
-      text-decoration:none;
-      font-size:13px;
-      font-weight:600;
-      color: var(--sub);
-      white-space:nowrap;
-      transition: color .2s, border-bottom .2s;
-      border-bottom:3px solid transparent;
-      margin-bottom:-3px;
-    }
-    nav ul li a:hover { color: var(--azul); border-bottom-color: var(--azul); }
-    nav ul li a.macro { color: var(--azul); }
-    nav ul li a.micro { color: var(--laranja); }
 
-    /* CONTAINER */
-    .container { max-width:1200px; margin:0 auto; padding:40px 20px; }
+    nav a {
+      color: rgba(255,255,255,0.70);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 16px 20px;
+      text-transform: uppercase;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
 
-    /* SECTION HEADERS */
+    nav a:hover {
+      color: var(--branco);
+      border-bottom-color: var(--laranja);
+    }
+
+    /* ─── LAYOUT ──────────────────────────────────────────────── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 56px 0 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--cinza-medio);
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .icon-macro { background: linear-gradient(135deg, var(--azul), var(--azul-claro)); }
+    .icon-micro { background: linear-gradient(135deg, var(--laranja), var(--laranja-claro)); }
+
     .section-title {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:28px;
-      padding-bottom:12px;
-      border-bottom:2px solid var(--cinza2);
-    }
-    .section-title .icon {
-      width:44px; height:44px;
-      border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px;
-      flex-shrink:0;
-    }
-    .icon-macro { background: rgba(26,58,92,0.10); }
-    .icon-micro { background: rgba(244,130,30,0.12); }
-    .section-title h2 {
-      font-size:22px;
-      font-weight:800;
+      font-size: 26px;
+      font-weight: 800;
       color: var(--azul);
+      letter-spacing: -0.3px;
     }
-    .section-label {
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      padding:3px 10px;
-      border-radius:12px;
-    }
-    .label-macro { background:#e8f0f7; color: var(--azul); }
-    .label-micro { background:#fff0e5; color: var(--laranja); }
 
-    /* CARDS */
-    .cards-grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px,1fr));
-      gap:24px;
-      margin-bottom:48px;
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--cinza-escuro);
+      font-weight: 500;
+      margin-top: 2px;
     }
+
+    /* ─── GRID ────────────────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .full-width { grid-column: 1 / -1; }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CARDS ───────────────────────────────────────────────── */
     .card {
       background: var(--branco);
-      border-radius:16px;
-      padding:28px;
+      border-radius: 18px;
+      padding: 28px;
       box-shadow: var(--sombra);
-      transition: transform .2s, box-shadow .2s;
-      border-top:4px solid var(--azul);
-      position:relative;
-      overflow:hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+      border: 1px solid rgba(26, 58, 92, 0.06);
     }
+
     .card:hover {
-      transform:translateY(-3px);
-      box-shadow: 0 8px 32px rgba(26,58,92,0.16);
+      box-shadow: var(--sombra-hover);
+      transform: translateY(-2px);
     }
-    .card.orange-border { border-top-color: var(--laranja); }
+
     .card-header {
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
     }
-    .card-num {
-      min-width:32px; height:32px;
-      background: var(--azul);
-      color: var(--branco);
-      border-radius:8px;
-      font-size:13px;
-      font-weight:700;
-      display:flex; align-items:center; justify-content:center;
+
+    .card-number {
+      min-width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--cinza);
+      color: var(--azul);
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .card-num.orange { background: var(--laranja); }
+
     .card h3 {
-      font-size:15px;
-      font-weight:700;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--azul);
-      line-height:1.3;
+      line-height: 1.35;
     }
+
+    .card p {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .card p:last-of-type { margin-bottom: 0; }
+
+    /* ─── BADGES ─────────────────────────────────────────────── */
     .badge {
-      display:inline-block;
-      font-size:10px;
-      font-weight:700;
-      letter-spacing:.8px;
-      text-transform:uppercase;
-      padding:3px 9px;
-      border-radius:10px;
-      margin-bottom:10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
     }
-    .badge-blue   { background:#e8f0f7; color:#1a3a5c; }
-    .badge-orange { background:#fff0e5; color:#c96a0e; }
-    .badge-green  { background:#e6f7ee; color:#1a7a45; }
-    .badge-red    { background:#fdecea; color:#c0392b; }
-    .badge-purple { background:#f0e8f7; color:#6a1a9c; }
-    .badge-gray   { background:#f1f3f5; color:#555; }
 
-    /* CONTENT STYLES */
-    .card p { font-size:14px; color: var(--sub); margin-bottom:10px; }
-    .card ul { padding-left:18px; }
-    .card ul li {
-      font-size:14px;
-      color: var(--texto);
-      margin-bottom:6px;
-    }
-    .card ul li strong { color: var(--azul); }
-    .card .stat {
-      display:flex; align-items:baseline; gap:6px;
-      margin:8px 0;
-    }
-    .card .stat .num {
-      font-size:28px;
-      font-weight:800;
-      color: var(--azul);
-    }
-    .card .stat .num.orange { color: var(--laranja); }
-    .card .stat .label { font-size:12px; color: var(--sub); }
+    .badge-azul    { background: rgba(26,58,92,0.10);  color: var(--azul); }
+    .badge-laranja { background: rgba(244,130,30,0.15); color: #c0621a; }
+    .badge-verde   { background: rgba(40,167,69,0.12);  color: #1a7a36; }
+    .badge-roxo    { background: rgba(111,66,193,0.12); color: #5a35a0; }
+    .badge-vermelho{ background: rgba(220,53,69,0.12);  color: #b02a37; }
+    .badge-ciano   { background: rgba(23,162,184,0.12); color: #0d7a8e; }
 
-    /* HIGHLIGHT BOX */
+    /* ─── HIGHLIGHT BOX ──────────────────────────────────────── */
     .highlight {
-      background: linear-gradient(135deg, rgba(26,58,92,0.06), rgba(26,58,92,0.02));
-      border-left:4px solid var(--azul);
-      border-radius:0 8px 8px 0;
-      padding:12px 16px;
-      margin:12px 0;
-      font-size:14px;
-      color: var(--texto);
-    }
-    .highlight.orange {
-      background: linear-gradient(135deg, rgba(244,130,30,0.07), rgba(244,130,30,0.02));
-      border-left-color: var(--laranja);
+      background: linear-gradient(135deg, rgba(244,130,30,0.06), rgba(26,58,92,0.06));
+      border-left: 4px solid var(--laranja);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
     }
 
-    /* SOURCE */
+    .highlight strong { color: var(--azul); font-weight: 700; }
+
+    /* ─── STAT BOXES ─────────────────────────────────────────── */
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 120px;
+      background: var(--cinza);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--azul);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--cinza-escuro);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── CASE CARDS ─────────────────────────────────────────── */
+    .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+    .case-card {
+      background: var(--branco);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--sombra);
+      border-top: 4px solid var(--laranja);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .case-card:hover { box-shadow: var(--sombra-hover); transform: translateY(-2px); }
+
+    .case-ong { font-size: 18px; font-weight: 800; color: var(--azul); margin-bottom: 4px; }
+    .case-meta { font-size: 12px; color: var(--cinza-escuro); margin-bottom: 14px; font-weight: 500; }
+    .case-result {
+      background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+      color: var(--branco);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    /* ─── NEWS LIST ──────────────────────────────────────────── */
+    .news-item {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--cinza-medio);
+    }
+
+    .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .news-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--cinza-medio);
+      min-width: 36px;
+      line-height: 1;
+    }
+
+    .news-title { font-size: 15px; font-weight: 700; color: var(--azul); margin-bottom: 6px; }
+    .news-desc  { font-size: 13px; color: #555; line-height: 1.6; }
+
+    /* ─── SWOT ───────────────────────────────────────────────── */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 600px) { .swot-grid { grid-template-columns: 1fr; } }
+
+    .swot-card {
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--sombra);
+    }
+
+    .swot-oport { background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 5px solid #28a745; }
+    .swot-amea  { background: linear-gradient(135deg, #f8d7da, #f5c6cb); border-left: 5px solid #dc3545; }
+
+    .swot-title {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .swot-oport .swot-title { color: #155724; }
+    .swot-amea  .swot-title { color: #721c24; }
+
+    .swot-list { list-style: none; }
+    .swot-list li {
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .swot-list li:last-child { border-bottom: none; }
+    .swot-oport .swot-list li::before { content: '✓'; color: #28a745; font-weight: 800; }
+    .swot-amea  .swot-list li::before { content: '✗'; color: #dc3545; font-weight: 800; }
+
+    /* ─── SOURCE ─────────────────────────────────────────────── */
     .source {
-      font-size:11px;
-      color: #a0aec0;
-      margin-top:14px;
-      padding-top:10px;
-      border-top:1px dashed var(--cinza2);
-    }
-    .source a { color: var(--laranja); text-decoration:none; }
-    .source a:hover { text-decoration:underline; }
-
-    /* CASE STUDY CARD */
-    .case-flag {
-      font-size:18px;
-      margin-right:6px;
-    }
-    .case-meta {
-      display:flex; flex-wrap:wrap; gap:6px;
-      margin:10px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--cinza-medio);
+      font-size: 11px;
+      color: var(--cinza-escuro);
+      font-weight: 500;
     }
 
-    /* OPORTUNIDADES E AMEAÇAS */
-    .opp-threat-grid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-      margin-bottom:48px;
-    }
-    .opp-box, .threat-box {
-      background: var(--branco);
-      border-radius:16px;
-      padding:28px;
-      box-shadow: var(--sombra);
-    }
-    .opp-box { border-top:4px solid #27ae60; }
-    .threat-box { border-top:4px solid #e74c3c; }
-    .opp-box h3 { color:#1a7a45; margin-bottom:16px; font-size:16px; }
-    .threat-box h3 { color:#c0392b; margin-bottom:16px; font-size:16px; }
-    .opp-item, .threat-item {
-      display:flex; gap:10px; align-items:flex-start;
-      margin-bottom:14px; padding-bottom:14px;
-      border-bottom:1px solid var(--cinza2);
-    }
-    .opp-item:last-child, .threat-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
-    .icon-circle {
-      min-width:28px; height:28px;
-      border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:14px;
-    }
-    .ic-green { background:#e6f7ee; }
-    .ic-red   { background:#fdecea; }
-    .opp-item p, .threat-item p { font-size:13px; color: var(--texto); }
-    .opp-item p strong, .threat-item p strong {
-      display:block; font-weight:700; margin-bottom:2px; font-size:14px;
-    }
-    .opp-item p strong { color:#1a7a45; }
-    .threat-item p strong { color:#c0392b; }
+    .source::before { content: '🔗'; font-size: 12px; }
 
-    /* COMPETITOR TABLE */
-    .comp-table {
-      width:100%;
-      border-collapse:collapse;
-      background: var(--branco);
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow: var(--sombra);
-      margin-bottom:24px;
-    }
+    /* ─── COMPETITOR TABLE ───────────────────────────────────── */
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .comp-table th {
       background: var(--azul);
       color: var(--branco);
-      padding:12px 16px;
-      text-align:left;
-      font-size:12px;
-      font-weight:600;
-      text-transform:uppercase;
-      letter-spacing:.8px;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
+    .comp-table th:first-child { border-radius: 10px 0 0 0; }
+    .comp-table th:last-child  { border-radius: 0 10px 0 0; }
     .comp-table td {
-      padding:12px 16px;
-      font-size:13px;
-      border-bottom:1px solid var(--cinza2);
-      vertical-align:top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cinza-medio);
+      vertical-align: top;
+      line-height: 1.5;
     }
-    .comp-table tr:last-child td { border-bottom:none; }
+    .comp-table tr:last-child td { border-bottom: none; }
     .comp-table tr:nth-child(even) td { background: var(--cinza); }
-    .comp-name { font-weight:700; color: var(--azul); }
+    .comp-name { font-weight: 700; color: var(--azul); }
 
-    /* PROGRESS BAR */
-    .prog-wrap { margin:8px 0; }
-    .prog-label {
-      display:flex; justify-content:space-between;
-      font-size:12px; margin-bottom:4px;
-    }
-    .prog-label span:first-child { color: var(--texto); font-weight:500; }
-    .prog-label span:last-child  { color: var(--sub); }
-    .prog-bar {
-      height:8px; background: var(--cinza2); border-radius:4px; overflow:hidden;
-    }
-    .prog-fill {
-      height:100%; border-radius:4px;
-      background: linear-gradient(90deg, var(--azul), #2e6da4);
-    }
-    .prog-fill.orange {
-      background: linear-gradient(90deg, var(--laranja), #f9a650);
-    }
-
-    /* DIVIDER */
+    /* ─── DIVIDER ────────────────────────────────────────────── */
     .divider {
-      height:3px;
-      background:linear-gradient(90deg, var(--azul), var(--laranja), transparent);
-      margin:40px 0;
-      border-radius:3px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--azul), var(--laranja));
+      border-radius: 2px;
+      margin: 8px 0 40px;
     }
 
-    /* FOOTER */
+    /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
       background: var(--azul);
-      color: rgba(255,255,255,.75);
-      text-align:center;
-      padding:32px 24px;
-      margin-top:40px;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 13px;
+      margin-top: 64px;
     }
-    footer p { font-size:13px; margin-bottom:4px; }
+
     footer strong { color: var(--laranja); }
-
-    /* RESPONSIVE */
-    @media(max-width:768px) {
-      .cards-grid { grid-template-columns:1fr; }
-      .opp-threat-grid { grid-template-columns:1fr; }
-      nav ul li a { padding:12px 14px; font-size:12px; }
-      .comp-table { font-size:12px; }
-      .comp-table th, .comp-table td { padding:10px 12px; }
+    footer .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--branco);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
 
-    /* SCROLL ANCHOR OFFSET */
-    [id] { scroll-margin-top:70px; }
+    /* ─── UTILITY ────────────────────────────────────────────── */
+    .mt-8  { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .text-muted { color: var(--cinza-escuro); font-size: 13px; }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ══════════════════════ HEADER ══════════════════════ -->
 <header>
-  <div class="header-badge">Intelligence Report</div>
+  <div class="header-badge">📊 Edição Quinzenal · Semana 3</div>
   <h1>Briefing Quinzenal — <span>3º Setor</span></h1>
   <p class="subtitle">TIME Captação Intelligence</p>
-  <p class="date">Publicado em 13 de maio de 2026 &nbsp;|&nbsp; Referência: abril–maio de 2026</p>
+  <p class="date">Publicado em 19 de maio de 2026 · Dados atualizados</p>
 </header>
 
-<!-- NAVEGAÇÃO -->
+<!-- ══════════════════════ NAV ══════════════════════════ -->
 <nav>
-  <ul>
-    <li><a href="#macro" class="macro">📊 MACRO</a></li>
-    <li><a href="#cases">Cases ONG</a></li>
-    <li><a href="#noticias">Notícias Globais</a></li>
-    <li><a href="#salesforce">Salesforce</a></li>
-    <li><a href="#doacoes-br">Doações BR</a></li>
-    <li><a href="#mapa-osc">Mapa OSC</a></li>
-    <li><a href="#nfp">NF Paulista</a></li>
-    <li><a href="#micro" class="micro">🎯 MICRO</a></li>
-    <li><a href="#concorrentes">Concorrentes</a></li>
-    <li><a href="#market">Market Share</a></li>
-    <li><a href="#opp">Oport. &amp; Ameaças</a></li>
-  </ul>
+  <a href="#macro">🌍 Macro</a>
+  <a href="#cases">Cases</a>
+  <a href="#noticias">Notícias</a>
+  <a href="#salesforce">Salesforce</a>
+  <a href="#doacoes">Doações BR</a>
+  <a href="#mapa">Mapa OSCs</a>
+  <a href="#nfp">NFP / MACFSP</a>
+  <a href="#micro">⚡ Micro</a>
+  <a href="#concorrentes">Concorrentes</a>
+  <a href="#swot">SWOT</a>
 </nav>
 
-<!-- CONTEÚDO PRINCIPAL -->
 <div class="container">
 
-  <!-- ======== MACRO ======== -->
-  <div id="macro"></div>
-  <div class="section-title" style="margin-top:8px">
-    <div class="icon icon-macro">📊</div>
-    <div>
-      <span class="section-label label-macro">Pesquisa Macro</span>
-      <h2>Cenário Global e Brasileiro do 3º Setor</h2>
+  <!-- ══════════════════ SEÇÃO MACRO ══════════════════════ -->
+  <section id="macro">
+    <div class="section-header">
+      <div class="section-icon icon-macro">🌍</div>
+      <div>
+        <div class="section-title">Pesquisa Macro</div>
+        <div class="section-subtitle">Tendências globais · 3º Setor · Filantropia · Tecnologia</div>
+      </div>
     </div>
-  </div>
+    <div class="divider"></div>
 
-  <!-- 1. CASES DE IMPACTO -->
-  <div id="cases"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">01</span>
-    Cases de Impacto — Campanhas de Fundraising
-  </h3>
+    <!-- CASES DE IMPACTO -->
+    <h2 id="cases" style="font-size:20px;font-weight:800;color:var(--azul);margin-bottom:20px;">
+      🏆 Cases de Impacto em Campanhas de ONG
+    </h2>
+    <div class="case-grid">
 
-  <div class="cards-grid">
+      <div class="case-card">
+        <span class="badge badge-azul">🇺🇸 EUA · Digital</span>
+        <div class="case-ong">Charity: Water</div>
+        <div class="case-meta">Campanha "September Campaign" · Doações de Aniversário</div>
+        <p style="font-size:14px;color:#444;">Iniciativa inovadora que convidava pessoas nascidas em setembro a pedir doações em vez de presentes de aniversário, usando redes sociais e plataformas digitais para engajar doadores de forma orgânica.</p>
+        <div class="case-result">💰 +US$ 1,8 milhão arrecadados — referência mundial em peer-to-peer fundraising</div>
+      </div>
 
-    <div class="card">
+      <div class="case-card">
+        <span class="badge badge-verde">🌍 Global · Eventos</span>
+        <div class="case-ong">ONG Educacional (Gala de Impacto)</div>
+        <div class="case-meta">Modelo: Gala de Captação Presencial · Setor: Educação</div>
+        <p style="font-size:14px;color:#444;">Galas bem executadas por organizações de médio porte demonstraram como eventos presenciais de alto padrão continuam sendo poderosos catalisadores de doações, especialmente para doadores major.</p>
+        <div class="case-result">💰 +US$ 200 mil em uma noite — destinados a programas educacionais</div>
+      </div>
+
+      <div class="case-card">
+        <span class="badge badge-laranja">🏃 EUA · Eventos</span>
+        <div class="case-ong">ONG de Combate à Situação de Rua</div>
+        <div class="case-meta">Tipo: Marathon Fundraiser · Causa: Habitação</div>
+        <p style="font-size:14px;color:#444;">Corridas e maratonas beneficentes seguem como canal de alta visibilidade — o modelo engaja redes pessoais dos participantes, amplia consciência sobre a causa e mobiliza doadores de todas as faixas etárias.</p>
+        <div class="case-result">💰 +US$ 150 mil + aumento significativo de consciência pública</div>
+      </div>
+
+      <div class="case-card">
+        <span class="badge badge-verde">🎵 Global · Cultura</span>
+        <div class="case-ong">ONG de Saúde Comunitária</div>
+        <div class="case-meta">Tipo: Benefit Concert · Causa: Saúde para populações de baixa renda</div>
+        <p style="font-size:14px;color:#444;">Concertos beneficentes continuam demonstrando forte poder de captação, unindo entretenimento e propósito. O modelo gera cobertura espontânea de mídia e posicionamento de marca para a organização.</p>
+        <div class="case-result">💰 US$ 75 mil arrecadados · +1.000 pessoas alcançadas no evento</div>
+      </div>
+
+      <div class="case-card">
+        <span class="badge badge-roxo">🇧🇷 Brasil · Digital</span>
+        <div class="case-ong">Trackmob + Dia de Doar</div>
+        <div class="case-meta">Plataforma SaaS · Campanhas digitais para ONGs brasileiras</div>
+        <p style="font-size:14px;color:#444;">A Trackmob criou estrutura especial para ONGs captarem no Dia de Doar, com landing pages personalizadas, integração PIX e CRM nativo, demonstrando o potencial das datas de alta doação no Brasil.</p>
+        <div class="case-result">🚀 Modelo de campanha 360º: digital + CRM + recorrência + face-to-face</div>
+      </div>
+
+    </div>
+    <div class="source">Fontes: fundsforNGOs · fiftyandfifty.org · Trackmob Blog · funraise.org</div>
+
+    <!-- NOTÍCIAS GLOBAIS -->
+    <div class="card full-width mt-24" id="noticias">
+      <span class="badge badge-azul">📰 Últimas 2 Semanas</span>
       <div class="card-header">
-        <div class="card-num">01</div>
-        <h3><span class="case-flag">🇺🇸</span> Charity: Water — "September Campaign"</h3>
+        <div>
+          <h3 style="font-size:18px;">5 Notícias Relevantes para o 3º Setor Global</h3>
+          <p class="text-muted">Análise das principais movimentações em filantropia e impacto social — maio de 2026</p>
+        </div>
       </div>
-      <div class="case-meta">
-        <span class="badge badge-blue">EUA</span>
-        <span class="badge badge-green">Peer-to-Peer</span>
-        <span class="badge badge-orange">Água Potável</span>
+
+      <div class="news-item">
+        <span class="news-num">01</span>
+        <div>
+          <div class="news-title">Instabilidade financeira cresce em ONGs no mundo todo</div>
+          <div class="news-desc">Líderes do setor reportam aumento de déficits e preocupações financeiras crescentes. Cortes em financiamento federal e estadual estão desorganizando o setor sem fins lucrativos nos EUA e Europa, forçando organizações a cortar equipes e programas.</div>
+          <span class="badge badge-vermelho mt-8">Alerta</span>
+        </div>
       </div>
-      <p>Campanha que convida pessoas nascidas em setembro a pedir doações para a Charity: Water em vez de presentes de aniversário. Estratégia de peer-to-peer que transforma datas pessoais em momentos de arrecadação.</p>
-      <div class="highlight">
-        <strong>Resultado:</strong> Arrecadou <strong>US$ 1,8 milhão</strong> em uma única campanha, com engajamento orgânico de rede.
+
+      <div class="news-item">
+        <span class="news-num">02</span>
+        <div>
+          <div class="news-title">Doadores exigem mais transparência e evidências de impacto</div>
+          <div class="news-desc">Segundo o relatório "11 Trends in Philanthropy for 2026" do Johnson Center, todos os perfis de doadores — de pequenos a grandes — estão demandando prestação de contas mais rigorosa, métricas claras de impacto e relatórios detalhados.</div>
+          <span class="badge badge-laranja mt-8">Tendência</span>
+        </div>
       </div>
-      <div class="stat"><span class="num">$1.8M</span><span class="label">arrecadados em campanha única</span></div>
-      <div class="source">Fonte: <a href="https://www2.fundsforngos.org/articles-searching-grants-and-donors/the-10-best-fundraising-campaigns-that-changed-the-ngo-sector/" target="_blank">FundsForNGOs</a> | <a href="https://www.instrumentl.com/blog/fundraising-campaign-examples" target="_blank">Instrumentl 2025</a></div>
+
+      <div class="news-item">
+        <span class="news-num">03</span>
+        <div>
+          <div class="news-title">IA: boom de produtividade chega ao setor social</div>
+          <div class="news-desc">A adoção de ferramentas de IA generativa está acelerando em ONGs. Organizações que adotam IA com governança clara reportam ganhos de eficiência e redução de burnout. Alerta: adoção sem planejamento pode reforçar desigualdades internas.</div>
+          <span class="badge badge-verde mt-8">Oportunidade</span>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <span class="news-num">04</span>
+        <div>
+          <div class="news-title">Confiança migra para organizações locais e redes de ajuda mútua</div>
+          <div class="news-desc">Pesquisas apontam que doadores têm mais confiança em organizações locais do que em grandes instituições nacionais. A tendência "community-based giving" está redefinindo o perfil dos doadores, especialmente entre millenials e geração Z.</div>
+          <span class="badge badge-ciano mt-8">Mudança estrutural</span>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <span class="news-num">05</span>
+        <div>
+          <div class="news-title">Governo global reduz investimento em impacto social — lacunas para ONGs</div>
+          <div class="news-desc">Ao redor do mundo, o ajuste fiscal e a retração de ajuda governamental e internacional deixam brechas que ONGs tentam preencher, mas com recursos cada vez mais competitivos. Filantropia privada ganha papel estratégico no financiamento de causas essenciais.</div>
+          <span class="badge badge-roxo mt-8">Contexto político</span>
+        </div>
+      </div>
+
+      <div class="source">Fontes: johnsoncenter.org · nonprofitpro.com · nff.org · foundationsource.com · orrgroup.com</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">02</div>
-        <h3><span class="case-flag">🌍</span> UNICEF — "Change for Good"</h3>
+    <!-- SALESFORCE -->
+    <div class="card full-width mt-24" id="salesforce">
+      <span class="badge badge-azul">☁️ CRM & Tech</span>
+      <h3 style="font-size:18px;margin-bottom:16px;">Atualizações Salesforce Nonprofit (NPSP / NPC / Agentforce)</h3>
+
+      <div class="grid-2">
+        <div>
+          <div class="highlight">
+            <strong>NPSP encerrou inovações em março de 2023.</strong><br/>
+            O pacote legado continua disponível e com suporte, mas não recebe novas funcionalidades. Organizações que dependem do NPSP podem continuar operando sem interrupção.
+          </div>
+          <p style="font-size:14px;color:#444;">O novo produto nativo — <strong>Nonprofit Cloud (NPC)</strong> — foi relançado como <strong>Agentforce Nonprofit</strong>, posicionado como o hub de IA da Salesforce para o 3º setor, com gestão de programas, fundraising, doações recorrentes e case management integrados.</p>
+        </div>
+        <div>
+          <div class="highlight">
+            <strong>2026 é o "ano da migração":</strong> especialistas do ecossistema apontam que a pressão para migrar do NPSP para o NPC está se intensificando, com cases de early adopters sendo divulgados.
+          </div>
+          <p style="font-size:14px;color:#444;">Integrações recentes incluem sincronização com <strong>GoFundMe Pro</strong> e melhorias em confiabilidade de dados de gift transactions. A nova arquitetura "core-native" oferece relatórios mais robustos e menor dependência de customizações caras.</p>
+        </div>
       </div>
-      <div class="case-meta">
-        <span class="badge badge-blue">Global</span>
-        <span class="badge badge-purple">Parceria Corporativa</span>
-        <span class="badge badge-orange">Infância</span>
+
+      <div class="stat-row mt-16">
+        <div class="stat"><span class="stat-value">2023</span><span class="stat-label">Fim inovações NPSP</span></div>
+        <div class="stat"><span class="stat-value">NPC</span><span class="stat-label">Produto principal 2026</span></div>
+        <div class="stat"><span class="stat-value">AI</span><span class="stat-label">Agentforce integrado</span></div>
+        <div class="stat"><span class="stat-value">🔄</span><span class="stat-label">Migração em curso</span></div>
       </div>
-      <p>Programa em parceria com companhias aéreas que convida passageiros a doarem o troco de moedas estrangeiras restantes durante voos internacionais.</p>
-      <div class="highlight">
-        <strong>Modelo:</strong> Integração de doação no momento do serviço — sem fricção para o doador. Gera arrecadação contínua e cria embaixadores espontâneos.
-      </div>
-      <p style="margin-top:8px;"><strong>Lição:</strong> Doação integrada à jornada do cliente como diferencial de engajamento corporativo.</p>
-      <div class="source">Fonte: <a href="https://www.unicef.org/executiveboard/documents/pfp-financial-report-2024-as-2025" target="_blank">UNICEF Executive Board 2024</a></div>
+
+      <div class="source">Fontes: salesforceben.com · belmarcloud.com · advancedcommunities.com · github.com/SalesforceFoundation/NPSP</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">03</div>
-        <h3><span class="case-flag">🇬🇧</span> Oxfam — "Trailwalker"</h3>
+    <!-- DOAÇÕES BRASIL -->
+    <div class="card full-width mt-24" id="doacoes">
+      <span class="badge badge-verde">🇧🇷 Brasil · Dados 2024-2025</span>
+      <h3 style="font-size:18px;margin-bottom:20px;">Números de Doação no Brasil por Segmento</h3>
+
+      <div class="stat-row">
+        <div class="stat"><span class="stat-value">R$ 24,3bi</span><span class="stat-label">Doações individuais 2024</span></div>
+        <div class="stat"><span class="stat-value">78%</span><span class="stat-label">Brasileiros que doaram</span></div>
+        <div class="stat"><span class="stat-value">R$ 480</span><span class="stat-label">Mediana anual por doador</span></div>
+        <div class="stat"><span class="stat-value">R$ 1bi+</span><span class="stat-label">Crowdfunding 2024</span></div>
       </div>
-      <div class="case-meta">
-        <span class="badge badge-blue">Reino Unido / Global</span>
-        <span class="badge badge-green">Evento Presencial</span>
-        <span class="badge badge-orange">Pobreza</span>
+
+      <div class="grid-2 mt-24">
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Perfil do Doador Brasileiro</h4>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">👤 Homens e mulheres doam em proporções similares (equiparação em 2024)</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">📅 Faixa etária de maior incidência: 30 a 49 anos</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🎓 57% com ensino superior realizam doações</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">📱 PIX e digital acelerando captação recorrente</li>
+            <li style="padding:8px 0;">💼 PJ com tributação em Lucro Real pode deduzir via leis de incentivo fiscal</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Crescimento Histórico</h4>
+          <div class="highlight">
+            O volume de doações individuais saltou de <strong>R$ 14,8 bilhões em 2022</strong> para <strong>R$ 24,3 bilhões em 2024</strong> — crescimento de 64% em dois anos, mostrando aceleração da cultura de doação no Brasil.
+          </div>
+          <p style="font-size:14px;color:#444;margin-top:12px;">A pesquisa Doação Brasil (IDIS, agosto/2025) é considerada a principal fonte sobre cultura de doação no país e confirma a tendência de profissionalização e crescimento do setor.</p>
+        </div>
       </div>
-      <p>Evento de caminhada de 100 km em equipes, onde participantes criam páginas pessoais de arrecadação. Combina experiência física com crowdfunding digital em modelo híbrido.</p>
-      <div class="highlight">
-        <strong>Destaque:</strong> Multiplica o alcance da organização via rede pessoal de cada participante — cada caminhante é um captador ativo.
-      </div>
-      <p><strong>Tendência 2025:</strong> Modelo de eventos-desafio cresce 34% no número de ONGs adotantes no mundo.</p>
-      <div class="source">Fonte: <a href="https://biggive.org/case-studies/" target="_blank">Big Give Case Studies</a> | <a href="https://fiftyandfifty.org/best-nonprofit-marketing-campaigns/" target="_blank">Fifty and Fifty</a></div>
+
+      <div class="source">Fontes: IDIS — Pesquisa Doação Brasil 2024 (idis.org.br) · Observatório do 3º Setor · CNN Brasil</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">04</div>
-        <h3><span class="case-flag">🌎</span> Médicos Sem Fronteiras — Fundo Emergencial Gaza/Sudão</h3>
+    <!-- MAPA OSCs -->
+    <div class="card full-width mt-24" id="mapa">
+      <span class="badge badge-roxo">🗺️ Mapa OSCs Brasil</span>
+      <h3 style="font-size:18px;margin-bottom:20px;">ONGs no Brasil e em SP por Segmento</h3>
+
+      <div class="stat-row">
+        <div class="stat"><span class="stat-value">897 mil</span><span class="stat-label">OSCs ativas no Brasil</span></div>
+        <div class="stat"><span class="stat-value">182 mil</span><span class="stat-label">OSCs em São Paulo</span></div>
+        <div class="stat"><span class="stat-value">20%</span><span class="stat-label">SP do total nacional</span></div>
+        <div class="stat"><span class="stat-value">+2%</span><span class="stat-label">Crescimento anual</span></div>
       </div>
-      <div class="case-meta">
-        <span class="badge badge-blue">Global</span>
-        <span class="badge badge-red">Crise Humanitária</span>
-        <span class="badge badge-orange">Saúde</span>
+
+      <div class="grid-2 mt-24">
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Distribuição por Tipo</h4>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🏢 79% são associações privadas</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">⛪ ~30% são organizações religiosas</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🌱 Demais: saúde, educação, meio ambiente, direitos humanos, cultura</li>
+            <li style="padding:8px 0;">📈 +17.674 novas organizações no último levantamento</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Distribuição Regional</h4>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🏙️ Sudeste: <strong>42%</strong> do total</li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🌊 Nordeste: <strong>24%</strong></li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🌲 Sul: <strong>18%</strong></li>
+            <li style="padding:8px 0;border-bottom:1px solid var(--cinza-medio);">🌾 Centro-Oeste: <strong>9%</strong></li>
+            <li style="padding:8px 0;">🌿 Norte: <strong>7%</strong></li>
+          </ul>
+        </div>
       </div>
-      <p>Frente à crise humanitária nos conflitos globais de 2024–2025, MSF intensificou campanhas de apelos de emergência em canais digitais, e-mail e telemarketing simultâneos.</p>
-      <div class="highlight">
-        <strong>Resultado:</strong> Captação emergencial impulsionada — doações em situação de crise figuram como categoria especial da Pesquisa Doação Brasil 2025 (IDIS).
-      </div>
-      <div class="source">Fonte: <a href="https://www.doctorswithoutborders.org/" target="_blank">MSF International</a> | <a href="https://www.idis.org.br/nova-edicao-da-pesquisa-doacao-brasil-acompanha-evolucao-do-tema-2/" target="_blank">IDIS 2025</a></div>
+
+      <div class="source">Fontes: IPEA — Mapa das OSCs (mapaosc.ipea.gov.br) · ABCR · Observatório do 3º Setor</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">05</div>
-        <h3><span class="case-flag">🇧🇷</span> Dia de Doar 2024 — Movimento Nacional</h3>
+    <!-- NOTA FISCAL PAULISTA + MACFSP -->
+    <div class="card full-width mt-24" id="nfp">
+      <span class="badge badge-laranja">📋 SP · Incentivo Fiscal</span>
+      <h3 style="font-size:18px;margin-bottom:20px;">Nota Fiscal Paulista para Doação & MACFSP</h3>
+
+      <div class="grid-2">
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Nota Fiscal Paulista — Como Funciona</h4>
+          <p style="font-size:14px;color:#444;margin-bottom:12px;">Programa do Governo de SP que incentiva a exigência de NF ao consumir. O saldo acumulado pode ser:</p>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:6px 0;">💳 Transferido via PIX/TED para conta do titular</li>
+            <li style="padding:6px 0;">🚗 Abatido no IPVA</li>
+            <li style="padding:6px 0;">❤️ <strong>Doado a instituições beneficentes cadastradas</strong></li>
+          </ul>
+          <div class="highlight" style="margin-top:16px;">
+            <strong>Atenção 2026:</strong> A Reforma Tributária está alterando o modelo das notas fiscais de serviço (NFS-e). SP terá dois modelos em 2026, impactando o ecossistema de incentivo fiscal.
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">MACFSP — Movimento de Apoio à Cidadania Fiscal</h4>
+          <p style="font-size:14px;color:#444;margin-bottom:12px;">O MACFSP é constituído por organizações da sociedade civil com o propósito de apoiar o programa Nota Fiscal Paulista, promovendo:</p>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:6px 0;">📢 Conscientização sobre a NF como instrumento de doação</li>
+            <li style="padding:6px 0;">🔗 Articulação entre ONGs e consumidores doadores</li>
+            <li style="padding:6px 0;">🏛️ Advocacy para ampliar o rol de beneficiários cadastrados</li>
+          </ul>
+          <div class="highlight" style="margin-top:16px;">
+            <strong>Filantropia na Cidade 2025:</strong> 2ª edição mobilizou ~1.700 voluntários e beneficiou +10.000 pessoas em SP, com foco em geração de renda, saúde e segurança alimentar.
+          </div>
+        </div>
       </div>
-      <div class="case-meta">
-        <span class="badge badge-green">Brasil</span>
-        <span class="badge badge-purple">Multi-Plataforma</span>
-        <span class="badge badge-blue">Data Comemorativa</span>
-      </div>
-      <p>Maior mobilização nacional de doações em um único dia, realizada em parceria com plataformas como Benfeitoria, Catarse, Doare, Arredondar, iFood e outras 16 parceiras.</p>
-      <div class="highlight">
-        <strong>Resultado 2024:</strong> Mais de <strong>R$ 5 milhões</strong> mapeados em doações em 16 plataformas parceiras em um único dia.
-      </div>
-      <div class="source">Fonte: <a href="https://captadores.org.br/abcr/dia-de-doar-lanca-relatorio-com-o-impacto-da-doacao-no-brasil-em-2024/" target="_blank">ABCR — Dia de Doar 2024</a></div>
+
+      <div class="source">Fontes: portal.fazenda.sp.gov.br · FONIF (fonif.org.br) · crcsp.org.br · observatorio3setor.org.br</div>
     </div>
 
-  </div>
+  </section>
 
-  <!-- 2. NOTÍCIAS 3º SETOR GLOBAL -->
-  <div id="noticias"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">02</span>
-    Notícias Relevantes — 3º Setor Global (últimas 2 semanas)
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">01</div>
-        <h3>Filantropia Global atinge US$ 2,3 trilhões em 2024</h3>
+  <!-- ══════════════════ SEÇÃO MICRO ══════════════════════ -->
+  <section id="micro">
+    <div class="section-header">
+      <div class="section-icon icon-micro">⚡</div>
+      <div>
+        <div class="section-title">Pesquisa Micro</div>
+        <div class="section-subtitle">Mercado de captação no Brasil · Concorrência · Oportunidades</div>
       </div>
-      <span class="badge badge-blue">Filantropia</span>
-      <p>Estudo global mostra que a filantropia operou em escala histórica em 2024, mas com concentração crescente: doadores de alta renda respondem por parcela desproporcional das contribuições, enquanto menos famílias participam do ecossistema.</p>
-      <div class="highlight">
-        <strong>Impacto para captação:</strong> Necessidade de estratégias de large donors e segmentação por capacidade de doação.
+    </div>
+    <div class="divider"></div>
+
+    <!-- CONCORRENTES -->
+    <div class="card full-width" id="concorrentes">
+      <span class="badge badge-laranja">🏢 Landscape Competitivo</span>
+      <h3 style="font-size:18px;margin-bottom:20px;">Concorrentes no Mercado de Captação de Recursos</h3>
+
+      <div style="overflow-x:auto;">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Modelo</th>
+              <th>Clientes / Posicionamento</th>
+              <th>Diferenciais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="comp-name">Trackmob</span><br/><span class="text-muted">trackmob.com.br</span></td>
+              <td>SaaS B2B para ONGs</td>
+              <td>14 grandes clientes: <strong>Greenpeace, WWF, MSF, CICV</strong>. Parceira mantenedora da ABCR.</td>
+              <td>Suite completa: CRM + app F2F + página de doação + portal do doador + mailing + processador de pagamentos (Collect). Tudo integrado.</td>
+            </tr>
+            <tr>
+              <td><span class="comp-name">Mobiliza</span></td>
+              <td>Consultoria + Tech</td>
+              <td>Parceria com Trackmob para avaliação de ONGs.</td>
+              <td>Foco em sustentabilidade financeira de OSCs. Avaliação institucional + capacitação.</td>
+            </tr>
+            <tr>
+              <td><span class="comp-name">Benfeitoria</span><br/><span class="text-muted">benfeitoria.com</span></td>
+              <td>Crowdfunding (plataforma)</td>
+              <td>ONGs de pequeno e médio porte. Gratuita, sem comissão sobre arrecadações.</td>
+              <td>Zero comissão, integração PIX, facilidade de uso. Foco em campanhas pontuais, não em recorrência.</td>
+            </tr>
+            <tr>
+              <td><span class="comp-name">Vakinha ONGs</span><br/><span class="text-muted">vakinha.com.br</span></td>
+              <td>Crowdfunding + Ferramentas</td>
+              <td>OSCs de diversos portes. Relatórios, base de doadores e PIX personalizado.</td>
+              <td>Relatórios de doações, chave PIX institucional personalizada, gestão de base de doadores.</td>
+            </tr>
+            <tr>
+              <td><span class="comp-name">Catarse / Apoia.se</span></td>
+              <td>Crowdfunding criativo</td>
+              <td>Projetos culturais e sociais. Modelo de financiamento por recompensas.</td>
+              <td>Base de audiência estabelecida, modelo por recompensas ou assinatura recorrente.</td>
+            </tr>
+            <tr>
+              <td><span class="comp-name">TIME Captação</span><br/><span class="text-muted" style="color:var(--laranja);font-weight:600;">Você</span></td>
+              <td>Fundraising Full-Service</td>
+              <td>ONGs brasileiras de médio e grande porte. Gestão completa de captação.</td>
+              <td>Consultoria estratégica + execução operacional + multi-canal (telemarketing, F2F, digital, mala direta). Know-how humano diferenciado.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="source">Fonte: <a href="https://johnsoncenter.org/blog/11-trends-in-philanthropy-for-2025/" target="_blank">Johnson Center — 11 Trends in Philanthropy 2025</a></div>
+      <div class="source">Fontes: trackmob.com.br · projetodraft.com · captadores.org.br · paraquemdoar.org · observatorio3setor.org.br</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">02</div>
-        <h3>81% das ONGs nos EUA lutaram para cobrir custos em 2025</h3>
+    <!-- MARKET SHARE & TENDÊNCIAS -->
+    <div class="card full-width mt-24" id="market">
+      <span class="badge badge-ciano">📈 Mercado Brasileiro</span>
+      <h3 style="font-size:18px;margin-bottom:20px;">Market Share & Tendências de Captação no Brasil</h3>
+
+      <div class="grid-2">
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Canais em Destaque</h4>
+          <ul style="list-style:none;font-size:14px;color:#444;">
+            <li style="padding:9px 0;border-bottom:1px solid var(--cinza-medio);">📱 <strong>Digital/PIX:</strong> Canal em maior crescimento. PIX transformou a facilidade de doação pontual e recorrente no Brasil.</li>
+            <li style="padding:9px 0;border-bottom:1px solid var(--cinza-medio);">💬 <strong>WhatsApp:</strong> Consolidou-se como principal canal de relacionamento e conversão B2C — CRM integrado é diferencial.</li>
+            <li style="padding:9px 0;border-bottom:1px solid var(--cinza-medio);">🚶 <strong>Face-to-Face:</strong> Mantém relevância para captação de doadores recorrentes de médio e alto valor.</li>
+            <li style="padding:9px 0;border-bottom:1px solid var(--cinza-medio);">📞 <strong>Telemarketing:</strong> Ainda relevante para renovação e upgrade de doadores, mas com pressão crescente de opt-outs.</li>
+            <li style="padding:9px 0;">✉️ <strong>Mala Direta:</strong> Ressurgimento como canal de fidelização para doadores acima de 50 anos.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--azul);margin-bottom:12px;">Números do Mercado</h4>
+          <div class="stat-row" style="flex-direction:column;gap:12px;">
+            <div class="highlight"><strong>R$ 1 bilhão+</strong> movimentados em crowdfunding no Brasil em 2024. Taxa de sucesso de campanhas acima de 50% em plataformas consolidadas.</div>
+            <div class="highlight"><strong>R$ 24,3 bilhões</strong> em doações individuais — base enorme para profissionalizar e captar com mais eficiência.</div>
+            <div class="highlight">Mercado fragmentado: maioria das ONGs ainda usa soluções desconectadas — grande oportunidade para prestadores de serviço completo.</div>
+          </div>
+        </div>
       </div>
-      <span class="badge badge-red">Crise Setorial</span>
-      <p>Relatório do Center for Effective Philanthropy (CEP) revela que 81% das organizações não conseguiram arrecadar o suficiente para cobrir todos os seus custos, e 36% encerraram o último exercício fiscal com déficit operacional.</p>
-      <div class="highlight">
-        <strong>Alerta:</strong> Cortes de verbas federais nos EUA geraram efeito cascata, pressionando ONGs a buscar mais doadores privados.
-      </div>
-      <div class="source">Fonte: <a href="https://cep.org/wp-content/uploads/2025/05/NVP_State-of-Nonprofits_2025.pdf" target="_blank">CEP — State of Nonprofits 2025</a></div>
+
+      <div class="source">Fontes: conteudo.bcodex.io · IDIS · captadores.org.br · portaldoimpacto.com</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">03</div>
-        <h3>Reforma fiscal de 2025 ameaça deduções para doações nos EUA</h3>
-      </div>
-      <span class="badge badge-red">Legislação</span>
-      <p>O setor filantrópico norte-americano enfrenta a revisão do código tributário de 2025, com propostas que podem alterar significativamente os incentivos fiscais para doações, afetando comportamento dos doadores de alta renda.</p>
-      <div class="highlight orange">
-        <strong>Paralelo Brasil:</strong> Tema similar ganha tração local com debates sobre incentivos do IR para doações às ONGs.
-      </div>
-      <div class="source">Fonte: <a href="https://independentsector.org/blog/nonprofits-squeezed-growing-community-need-fewer-resources/" target="_blank">Independent Sector 2025</a></div>
-    </div>
+    <!-- SWOT -->
+    <div class="card full-width mt-24" id="swot">
+      <span class="badge badge-azul">⚖️ Análise Estratégica</span>
+      <h3 style="font-size:18px;margin-bottom:24px;">Oportunidades & Ameaças para Empresas de Captação — Próximos 6 Meses</h3>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">04</div>
-        <h3>Call to Action: Fundos urgidos a apoiar ONGs sob pressão</h3>
-      </div>
-      <span class="badge badge-purple">Filantropia</span>
-      <p>A organização GEO, em parceria com Trust-Based Philanthropy Project e National Center for Family Philanthropy, lançou convocação urgente pedindo que fundações e investidores sociais mobilizem recursos para ONGs que atuam em frentes de crise.</p>
-      <div class="highlight">
-        <strong>Modelo:</strong> Filantropia baseada em confiança (trust-based philanthropy) cresce como tendência para reduzir burocracia nas doações.
-      </div>
-      <div class="source">Fonte: <a href="https://www.geofunders.org/news/meet-the-moment-a-call-to-action-for-philanthropy-in-2025-and-beyond/" target="_blank">GEO — Meet the Moment 2025</a></div>
-    </div>
+      <div class="swot-grid">
+        <div class="swot-card swot-oport">
+          <div class="swot-title">✅ 4 Oportunidades</div>
+          <ul class="swot-list">
+            <li>Cultura de doação em aceleração: R$24,3bi em doações individuais em 2024 (+64% vs 2022) — base crescente de doadores para profissionalizar e engajar com captação recorrente</li>
+            <li>PIX + digital desburocratizando doação recorrente: reduz atrito, aumenta conversão e possibilita novos modelos de captação de médio valor (R$30–R$150/mês)</li>
+            <li>IA para personalização e eficiência operacional: automação de comunicação, segmentação de doadores, previsão de churn e otimização de canais a custo acessível</li>
+            <li>Crescimento de ONGs de médio porte sem capacidade interna: demanda por serviços de captação terceirizados cresce junto com o setor, especialmente em SP</li>
+          </ul>
+        </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">05</div>
-        <h3>IDIS: "Perspectivas para Filantropia 2025" destaca saúde mental e emergências</h3>
-      </div>
-      <span class="badge badge-green">Brasil</span>
-      <p>Relatório do IDIS (Instituto para o Desenvolvimento do Investimento Social) aponta saúde mental e resposta a emergências climáticas como as causas que mais crescem no radar dos doadores e investidores sociais no Brasil em 2025.</p>
-      <div class="highlight orange">
-        <strong>Oportunidade:</strong> ONGs de saúde mental e resposta a desastres têm janela privilegiada para captação em 2025.
-      </div>
-      <div class="source">Fonte: <a href="https://www.idis.org.br/perspectivas-para-a-filantropia-no-brasil-2025-destaca-respostas-a-emergencias-e-saude-mental-no-terceiro-setor/" target="_blank">IDIS — Perspectivas Filantropia 2025</a></div>
-    </div>
-
-  </div>
-
-  <!-- 3. SALESFORCE -->
-  <div id="salesforce"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">03</span>
-    Salesforce Nonprofit — NPSP &amp; NPC / Agentforce
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">01</div>
-        <h3>NPSP encerrou novos desenvolvimentos em março de 2023</h3>
-      </div>
-      <span class="badge badge-gray">NPSP</span>
-      <p>O Nonprofit Success Pack (NPSP) não recebe mais funcionalidades novas desde março de 2023, quando o Salesforce lançou o Nonprofit Cloud (NPC). Organizações que usam NPSP continuam com suporte, mas sem inovação.</p>
-      <div class="highlight orange">
-        <strong>Ação recomendada:</strong> Iniciar planejamento de migração para o Nonprofit Cloud (Agentforce Nonprofit) até 2026 para evitar obsolescência.
-      </div>
-      <div class="source">Fonte: <a href="https://belmarcloud.com/the-great-migration-is-2026-the-year-to-move-from-npsp-to-nonprofit-cloud/" target="_blank">Belmar Cloud — The Great Migration 2026</a> | <a href="https://www.salesforceben.com/the-state-of-salesforce-nonprofit-offerings-in-2026/" target="_blank">Salesforce Ben 2026</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">02</div>
-        <h3>Nonprofit Cloud rebatizado como "Agentforce Nonprofit"</h3>
-      </div>
-      <span class="badge badge-blue">NPC → Agentforce</span>
-      <p>A Salesforce renomeou o Nonprofit Cloud para <strong>Agentforce Nonprofit</strong>, refletindo a aposta estratégica da empresa em fluxos de trabalho impulsionados por IA para organizações sem fins lucrativos.</p>
-      <div class="highlight">
-        <strong>Impacto:</strong> IA generativa embarcada no CRM para nonprofits — automação de engajamento de doadores, relatórios e gestão de voluntários.
-      </div>
-      <div class="source">Fonte: <a href="https://prosupport.gofundme.com/hc/en-us/articles/37288754104475-Salesforce-Agentforce-Nonprofit-Cloud-NPC-integration-release-notes" target="_blank">GoFundMe Pro — Agentforce Nonprofit Release Notes</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">03</div>
-        <h3>Release outubro 2025: Gestão de Voluntários com IA</h3>
-      </div>
-      <span class="badge badge-purple">Release Previsto</span>
-      <p>A grande release de outubro de 2025 do Agentforce Nonprofit foca em gestão de voluntários com IA embarcada:</p>
-      <ul>
-        <li>Automação de capacidade e cobertura de turnos de voluntariado</li>
-        <li>Matching inteligente de voluntários para funções específicas</li>
-        <li>Automação em lote de processos manuais</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://github.com/SalesforceFoundation/NPSP/releases" target="_blank">NPSP GitHub Releases</a> | <a href="https://help.salesforce.com/s/articleView?id=sfdo.nonprofit_success_pack.htm&language=en_US&type=5" target="_blank">Salesforce Help NPSP</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">04</div>
-        <h3>Integração GoFundMe Pro + Salesforce NPC atualizada</h3>
-      </div>
-      <span class="badge badge-green">Integração</span>
-      <p>Releases recentes melhoram a sincronização entre GoFundMe Pro e Salesforce Nonprofit Cloud, com correções para maior confiabilidade em:</p>
-      <ul>
-        <li>Transações de presentes (gift transactions)</li>
-        <li>Compromissos de doação (gift commitments)</li>
-        <li>Registros de apoiadores (supporter records)</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://prosupport.gofundme.com/hc/en-us/articles/37288767405723-Salesforce-integration-release-notes-NPSP-Nonprofit-Success-Pack" target="_blank">GoFundMe Pro — NPSP Integration Release Notes</a></div>
-    </div>
-
-  </div>
-
-  <!-- 4. DOAÇÕES BRASIL -->
-  <div id="doacoes-br"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">04</span>
-    Números de Doação no Brasil — Pesquisa Doação Brasil 2024 (IDIS)
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num orange">R$</div>
-        <h3>Volume Total de Doações Individuais 2024</h3>
-      </div>
-      <div class="stat"><span class="num orange">R$24,3bi</span></div>
-      <span class="badge badge-orange">Pessoa Física</span>
-      <p>Volume estimado de doações individuais no Brasil em 2024, superior aos R$ 14,8 bilhões registrados em 2022 (corrigidos pela inflação). Crescimento expressivo na cultura de doação.</p>
-      <div class="highlight">
-        <strong>78%</strong> dos brasileiros acima de 18 anos com renda ≥ 1 salário mínimo fizeram ao menos uma doação em 2024 (dinheiro, bens ou voluntariado).
-      </div>
-      <div class="source">Fonte: <a href="https://www.idis.org.br/pesquisa-doacao-brasil-volume-de-doacoes-individuais-no-brasil-chega-a-r243-bilhoes-em-2024/" target="_blank">IDIS — Pesquisa Doação Brasil 2024</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num orange">📊</div>
-        <h3>Comportamento do Doador Brasileiro em 2024</h3>
-      </div>
-      <span class="badge badge-blue">Comportamento</span>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Doam com critério de causa</span><span>86%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:86%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Buscam informações antes de doar</span><span>83%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:83%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>ONGs adotam PIX como canal</span><span>80%</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:80%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Usam PIX para doações institucionais</span><span>66%</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:66%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Acreditam que maioria das ONGs é confiável</span><span>30%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:30%; background:linear-gradient(90deg,#e74c3c,#f08080)"></div></div>
-      </div>
-      <div class="source">Fonte: <a href="https://www.idis.org.br/cultura-de-doacao-recorrencia-e-confianca-o-que-revelam-os-dados-da-pesquisa-doacao-brasil-2024/" target="_blank">IDIS — Cultura de Doação 2024</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num orange">💰</div>
-        <h3>Ticket Médio e Frequência de Doação</h3>
-      </div>
-      <span class="badge badge-orange">Ticket Médio</span>
-      <div class="stat"><span class="num orange">R$480</span><span class="label">mediana anual por doador (era R$300 em 2022)</span></div>
-      <div class="highlight orange">
-        <strong>+60% de crescimento</strong> no ticket médio anual em dois anos — indicador positivo de maturidade e comprometimento dos doadores.
-      </div>
-      <p>A prática de doação se torna <strong>menos frequente, porém mais estratégica</strong>: doadores pesquisam mais antes de escolher suas causas.</p>
-      <div class="source">Fonte: <a href="https://www.filantropia.ong/informacao/volume-de-doacoes-individuais-no-brasil-chega-a-r-24-3-bilhoes-em-2024" target="_blank">Filantropia.ong — IDIS 2024</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num orange">📱</div>
-        <h3>Canais de Doação: PIX Lidera a Transformação</h3>
-      </div>
-      <span class="badge badge-green">Canais Digitais</span>
-      <p>O PIX emergiu como meio preferencial de doação digital, substituindo parcialmente a doação de bens (que exige deslocamento e logística). O lançamento do <strong>PIX Automático</strong> promete revolucionar a recorrência.</p>
-      <ul>
-        <li><strong>50%</strong> das ONGs com PIX relataram aumento nas doações</li>
-        <li>PIX Automático: configuração de doação recorrente com um clique</li>
-        <li>80% das OSCs já têm chave PIX cadastrada</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://captadores.org.br/captamos/doacoes-invisiveis-o-que-as-oscs-ainda-nao-estao-enxergando-no-pix-e-a-chegada-do-pix-automatico/" target="_blank">ABCR — PIX Automático</a> | <a href="https://doare.org/artigopixautomatico" target="_blank">Doare — PIX Automático</a></div>
-    </div>
-
-  </div>
-
-  <!-- 5. MAPA DAS OSCs -->
-  <div id="mapa-osc"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">05</span>
-    Mapa do 3º Setor — OSCs no Brasil e em São Paulo
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">🇧🇷</div>
-        <h3>Brasil: 897 mil organizações da sociedade civil ativas</h3>
-      </div>
-      <span class="badge badge-blue">Nacional — IPEA 2024</span>
-      <div class="stat"><span class="num">897k</span><span class="label">OSCs ativas no Brasil (Mapa das OSCs/IPEA)</span></div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Sudeste</span><span>41,5%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:41.5%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Nordeste</span><span>24,7%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:24.7%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Sul</span><span>18,4%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:18.4%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Centro-Oeste</span><span>8,2%</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:8.2%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Norte</span><span>7,2%</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:7.2%"></div></div>
-      </div>
-      <div class="source">Fonte: <a href="https://www.ipea.gov.br/portal/categorias/45-todas-as-noticias/noticias/15591-brasil-possui-mais-de-897-mil-organizacoes-da-sociedade-civil-ativas" target="_blank">IPEA — Mapa das OSCs 2024</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">🏙️</div>
-        <h3>São Paulo: epicentro do setor com 50+ mil OSCs na capital</h3>
-      </div>
-      <span class="badge badge-orange">São Paulo</span>
-      <div class="stat"><span class="num orange">50k+</span><span class="label">OSCs na capital paulista</span></div>
-      <div class="highlight">
-        São Paulo é o <strong>estado com maior concentração</strong> de organizações da sociedade civil do país, e a cidade de São Paulo abriga o maior ecossistema de captação de recursos e filantropia do Brasil.
-      </div>
-      <p>O estado de São Paulo responde por parte expressiva dos 41,5% das OSCs da Região Sudeste, que concentra o maior número nacional.</p>
-      <div class="source">Fonte: <a href="https://mapaosc.ipea.gov.br/" target="_blank">mapaosc.ipea.gov.br</a> | <a href="https://captadores.org.br/nao-categorizado/brasil-conta-com-815-mil-organizacoes-segundo-atualizacao-do-mapa-das-oscs/" target="_blank">ABCR — Mapa das OSCs</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">📋</div>
-        <h3>Distribuição por Tipo Jurídico</h3>
-      </div>
-      <span class="badge badge-blue">Perfil Organizacional</span>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Associações sem fins lucrativos</span><span>81%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:81%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Organizações religiosas</span><span>17%</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:17%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Fundações</span><span>1,5%</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:1.5%; background:#27ae60"></div></div>
-      </div>
-      <div class="highlight orange">
-        <strong>Saúde</strong> é o setor com maior número de vínculos formais: 862.141 vínculos registrados.
-      </div>
-      <div class="source">Fonte: <a href="https://www.fecap.br/2024/01/31/numeros-do-terceiro-setor-em-2024/" target="_blank">FECAP — Números do 3º Setor 2024</a></div>
-    </div>
-
-  </div>
-
-  <!-- 6. NOTA FISCAL PAULISTA E MACFSP -->
-  <div id="nfp"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--azul);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">06</span>
-    Nota Fiscal Paulista para Doação &amp; MACFSP
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">🧾</div>
-        <h3>Programa de Doação via Nota Fiscal Paulista</h3>
-      </div>
-      <span class="badge badge-green">Ativo</span>
-      <p>Programa estadual que permite ao consumidor destinar seus créditos de Nota Fiscal Paulista para entidades assistenciais cadastradas. Atualmente, cerca de <strong>4.000 entidades</strong> cadastradas recebem recursos via programa.</p>
-      <div class="highlight">
-        <strong>Funcionalidade de doação automática:</strong> Consumidores podem configurar destinação automática de seus créditos para a entidade favorita via site ou app da NF Paulista.
-      </div>
-      <ul>
-        <li>Doação via QR Code ou digitação de dados do cupom</li>
-        <li>Abatimento de IPVA, transferência bancária <em>ou</em> doação</li>
-        <li>Premiação 2025: 655 prêmios, totalizando R$ 6,7 milhões</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://portal.fazenda.sp.gov.br/servicos/nfp" target="_blank">Secretaria da Fazenda SP — NF Paulista</a></div>
-    </div>
-
-    <div class="card orange-border">
-      <div class="card-header">
-        <div class="card-num orange">⚠️</div>
-        <h3>MACFSP alerta: mudanças podem inviabilizar o programa</h3>
-      </div>
-      <span class="badge badge-red">Ameaça</span>
-      <p>O Movimento de Apoio à Cultura, Filantropia e Sociedade de São Paulo (MACFSP) emitiu nota de preocupação sobre mudanças regulatórias que impediriam o consumidor de realizar a doação diretamente nos estabelecimentos comerciais ou nas próprias ONGs.</p>
-      <div class="highlight orange">
-        <strong>Posição do MACFSP:</strong> Impedir a doação presencial da nota vai inviabilizar o Programa Nota Fiscal Paulista como canal de captação para o 3º setor.
-      </div>
-      <p>A entidade representa as ~4.000 organizações beneficiárias do programa e é canal importante para sensibilização política.</p>
-      <div class="source">Fonte: <a href="https://captadores.org.br/noticias/gerais/macf-aponta-que-mudancas-podem-inviabilizar-o-programa-nota-fiscal-paulista/" target="_blank">ABCR — MACFSP e Nota Fiscal Paulista</a></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-num">🎖️</div>
-        <h3>Filantropia na Cidade 2025 — 2ª Edição</h3>
-      </div>
-      <span class="badge badge-purple">Iniciativa FONIF</span>
-      <p>Realizada entre 10 e 20 de outubro de 2025, com apoio do Instituto Presbiteriano Mackenzie. Mobilizou voluntários e instituições em ações de impacto social em todo o estado de SP.</p>
-      <ul>
-        <li>1ª edição (2024): 1.700 voluntários, 10 mil pessoas beneficiadas</li>
-        <li>Foco: geração de renda, saúde, alimentação, recreação</li>
-        <li>Participação gratuita para ONGs, OSCs e associações</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://observatorio3setor.org.br/filantropia-na-cidade-abre-inscricoes-para-a-segunda-edicao-em-2025/" target="_blank">Observatório do 3º Setor — Filantropia na Cidade 2025</a></div>
-    </div>
-
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- ======== MICRO ======== -->
-  <div id="micro"></div>
-  <div class="section-title">
-    <div class="icon icon-micro">🎯</div>
-    <div>
-      <span class="section-label label-micro">Pesquisa Micro</span>
-      <h2>Mercado de Captação de Recursos no Brasil</h2>
-    </div>
-  </div>
-
-  <!-- 7. CONCORRENTES -->
-  <div id="concorrentes"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--laranja);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">07</span>
-    Concorrentes no Mercado de Captação
-  </h3>
-
-  <div style="overflow-x:auto; margin-bottom:32px;">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Empresa</th>
-          <th>Modelo</th>
-          <th>Clientes / Escala</th>
-          <th>Posicionamento</th>
-          <th>Diferenciais</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="comp-name">Trackmob</span><br><span class="badge badge-blue" style="margin-top:4px">SaaS B2B</span></td>
-          <td>Licença mensal por módulo + taxa por doador na base do CRM. Receita cresce com a base do cliente.</td>
-          <td>14+ grandes ONGs: Greenpeace, WWF, MSF, Cruz Vermelha Internacional. R$ 650M processados, 1,9M doadores, 10,4M doações.</td>
-          <td>Suite completa para o 3º setor brasileiro — do face-to-face ao digital</td>
-          <td>CRM próprio, app F2F, motor de cobrança (Collect), mala direta digital, portal do doador, página de doação personalizável</td>
-        </tr>
-        <tr>
-          <td><span class="comp-name">Doare</span><br><span class="badge badge-orange" style="margin-top:4px">Fintech</span></td>
-          <td>Taxa sobre doações processadas + plano mensal para features avançadas</td>
-          <td>Diversas ONGs médias e grandes. Participou do Dia de Doar com +R$ 5M mapeados em 2024.</td>
-          <td>Fintech de doações online com soluções para ONGs e engajamento de colaboradores em empresas</td>
-          <td>PIX recorrente nativo, múltiplos meios de pagamento (PIX, cartão, boleto, PicPay, PayPal, Bitcoin), integração Salesforce</td>
-        </tr>
-        <tr>
-          <td><span class="comp-name">Benfeitoria</span><br><span class="badge badge-green" style="margin-top:4px">Crowdfunding</span></td>
-          <td>Modelo "pague o que quiser" — primeira plataforma no mundo a não cobrar comissão obrigatória</td>
-          <td>Projetos sociais, culturais, ambientais. Participante do Dia de Doar 2024.</td>
-          <td>Plataforma de mobilização de recursos para projetos de impacto — social, cultural e ambiental</td>
-          <td>Sem comissão fixa, foco em projetos sustentáveis e de longo prazo, forte comunidade de apoiadores</td>
-        </tr>
-        <tr>
-          <td><span class="comp-name">Vakinha</span><br><span class="badge badge-purple" style="margin-top:4px">Crowdfunding</span></td>
-          <td>Taxa de comissão sobre arrecadação</td>
-          <td>Maior plataforma de vaquinha online do Brasil e América Latina. Público amplo, incluindo causas pessoais.</td>
-          <td>Plataforma de arrecadação para qualquer causa — pessoal, social, emergencial</td>
-          <td>Volume massivo, facilidade de uso, alta reconhecibilidade de marca, menor fricção de cadastro</td>
-        </tr>
-        <tr>
-          <td><span class="comp-name">Catarse</span><br><span class="badge badge-gray" style="margin-top:4px">Crowdfunding</span></td>
-          <td>10% de comissão sobre arrecadação</td>
-          <td>Projetos criativos, culturais, ativismo e ciência desde 2011.</td>
-          <td>Plataforma criativa e cultural com foco em projetos de arte, ativismo e empreendedorismo</td>
-          <td>Comunidade estabelecida, foco em impacto cultural e social, forte curadoria de projetos</td>
-        </tr>
-        <tr>
-          <td><span class="comp-name">Apoia.se</span><br><span class="badge badge-orange" style="margin-top:4px">Assinatura</span></td>
-          <td>Assinatura mensal recorrente — modelo parecido com Patreon</td>
-          <td>Criadores de conteúdo, iniciativas contínuas, alguns projetos sociais</td>
-          <td>Plataforma de financiamento contínuo via assinatura — ideal para projetos que precisam de receita estável</td>
-          <td>Recorrência garantida, relacionamento próximo criador-apoiador, ideal para doação recorrente</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 8. MARKET SHARE E TENDÊNCIAS -->
-  <div id="market"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--laranja);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">08</span>
-    Market Share e Tendências de Captação no Brasil
-  </h3>
-
-  <div class="cards-grid">
-
-    <div class="card orange-border">
-      <div class="card-header">
-        <div class="card-num orange">📈</div>
-        <h3>Canais de Captação: Maturidade e Crescimento</h3>
-      </div>
-      <span class="badge badge-orange">Canais</span>
-      <div class="prog-wrap" style="margin-top:10px">
-        <div class="prog-label"><span>PIX (digital)</span><span>🔥 em expansão</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:80%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Telemarketing</span><span>maduro</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Face-to-Face (F2F)</span><span>estável</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:55%"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Mala Direta</span><span>declínio</span></div>
-        <div class="prog-bar"><div class="prog-fill" style="width:30%; background:#c0c0c0"></div></div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label"><span>Redes Sociais / Digital</span><span>crescimento</span></div>
-        <div class="prog-bar"><div class="prog-fill orange" style="width:70%"></div></div>
-      </div>
-      <div class="source">Fonte: <a href="https://captadores.org.br/captamos/captacao-de-recursos-2025-principais-tendencias/" target="_blank">ABCR — Captação 2025 Tendências</a></div>
-    </div>
-
-    <div class="card orange-border">
-      <div class="card-header">
-        <div class="card-num orange">🤖</div>
-        <h3>Tendências Tecnológicas para Captação 2025</h3>
-      </div>
-      <span class="badge badge-purple">Inovação</span>
-      <ul style="margin-top:10px">
-        <li><strong>IA para personalização:</strong> Previsão de comportamento de doação via dados históricos</li>
-        <li><strong>PIX Automático:</strong> Revolução da recorrência — doador configura débito automático via PIX</li>
-        <li><strong>WhatsApp como canal:</strong> Integração de doação via app de mensagens</li>
-        <li><strong>Realidade virtual/aumentada:</strong> Imersão do doador na causa</li>
-        <li><strong>Parcerias intersetoriais:</strong> Empresas privadas + ONGs + poder público</li>
-      </ul>
-      <div class="source">Fonte: <a href="https://nossacausa.com/2024/12/principais-tendencias-de-captacao-de-recursos-para-2025-estrategias-para-ongs" target="_blank">Nossa Causa — Tendências 2025</a> | <a href="https://observatorio3setor.org.br/cinco-tendencias-da-captacao-de-recursos-para-2025/" target="_blank">Observatório 3º Setor</a></div>
-    </div>
-
-    <div class="card orange-border">
-      <div class="card-header">
-        <div class="card-num orange">🔄</div>
-        <h3>Retenção supera Aquisição como foco estratégico em 2025</h3>
-      </div>
-      <span class="badge badge-orange">Estratégia</span>
-      <p>A grande virada estratégica de 2025: mais do que captar novos doadores, <strong>reter os existentes</strong> é o foco central das ONGs. Engajamento contínuo e transparência são os pilares.</p>
-      <div class="highlight orange">
-        <strong>Recorrência é o Santo Graal:</strong> Doadores mensais têm LTV (Lifetime Value) 4-7x maior que doadores pontuais — e o PIX Automático promete destravar esta conversão.
-      </div>
-      <p>62% dos investidores sociais preveem reduzir aportes em 2025 — pressão para maximizar retenção da base atual.</p>
-      <div class="source">Fonte: <a href="https://paraquemdoar.org/noticias/captacao-de-recursos-2025/" target="_blank">Para Quem Doar — Captação 2025</a></div>
-    </div>
-
-  </div>
-
-  <!-- 9. OPORTUNIDADES E AMEAÇAS -->
-  <div id="opp"></div>
-  <h3 style="font-size:17px; color:var(--azul); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-    <span style="background:var(--laranja);color:#fff;border-radius:8px;padding:2px 10px;font-size:13px;">09</span>
-    Oportunidades e Ameaças — Próximos 6 Meses
-  </h3>
-
-  <div class="opp-threat-grid">
-
-    <div class="opp-box">
-      <h3>✅ 4 Grandes Oportunidades</h3>
-
-      <div class="opp-item">
-        <div class="icon-circle ic-green">🚀</div>
-        <p>
-          <strong>PIX Automático: janela de primeiro movimento</strong>
-          A chegada do PIX Automático abre oportunidade única para ONGs e empresas de captação que liderarem a adoção. Converter doadores pontuais em recorrentes via PIX pode dobrar o LTV da base em 6 meses.
-        </p>
-      </div>
-
-      <div class="opp-item">
-        <div class="icon-circle ic-green">🤖</div>
-        <p>
-          <strong>IA aplicada à retenção e personalização</strong>
-          Ferramentas de IA para segmentar comunicações, prever churn de doadores e automatizar jornadas de engajamento estão acessíveis e ainda pouco exploradas pelas ONGs brasileiras — gap competitivo claro para captadores tech-savvy.
-        </p>
-      </div>
-
-      <div class="opp-item">
-        <div class="icon-circle ic-green">🌱</div>
-        <p>
-          <strong>Crescimento de doações para saúde mental e clima</strong>
-          IDIS aponta saúde mental e resposta a emergências climáticas como as causas de maior crescimento. ONGs nessas áreas têm timing favorável para lançar campanhas e programas de doador recorrente.
-        </p>
-      </div>
-
-      <div class="opp-item">
-        <div class="icon-circle ic-green">🤝</div>
-        <p>
-          <strong>Parcerias intersetoriais e ESG corporativo</strong>
-          Empresas sob pressão de metas ESG buscam parcerias com ONGs. Estruturar produtos de captação corporativa (doação de colaboradores, matching, patrocínio de projetos) é canal de alto potencial para 2025.
-        </p>
+        <div class="swot-card swot-amea">
+          <div class="swot-title">⚠️ 4 Ameaças</div>
+          <ul class="swot-list">
+            <li>Corte de financiamento público impacta orçamento das ONGs-clientes: ONGs com menos recursos cortam contratos de captação antes de cortar pessoal interno</li>
+            <li>Plataformas digitais gratuitas (Benfeitoria, Vakinha) democratizando acesso a ferramentas básicas de captação — pressão em projetos de menor complexidade</li>
+            <li>Doadores exigindo mais transparência e impacto mensurável: pressão sobre ONGs que repassam para prestadores — campanhas genéricas perdem eficiência</li>
+            <li>Reforma tributária em 2026 altera incentivos fiscais: mudanças nas NFS-e e no modelo de notas paulistas podem afetar mecanismos de captação via incentivos</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class="threat-box">
-      <h3>⚠️ 4 Principais Ameaças</h3>
+  </section>
+</div>
 
-      <div class="threat-item">
-        <div class="icon-circle ic-red">📉</div>
-        <p>
-          <strong>Retração de grandes investidores sociais</strong>
-          62% dos investidores sociais preveem reduzir aportes em 2025, pressionando a receita de ONGs e por consequência a demanda por serviços de captação. Organizações com dependência alta em poucos grandes doadores estão vulneráveis.
-        </p>
-      </div>
-
-      <div class="threat-item">
-        <div class="icon-circle ic-red">🚫</div>
-        <p>
-          <strong>Baixa confiança nas ONGs (30%) — risco reputacional</strong>
-          Apenas 30% dos brasileiros acreditam que a maioria das ONGs é confiável. Escândalos ou percepção de falta de transparência podem impactar toda a indústria de captação, elevando custo de aquisição de novos doadores.
-        </p>
-      </div>
-
-      <div class="threat-item">
-        <div class="icon-circle ic-red">⚖️</div>
-        <p>
-          <strong>Instabilidade regulatória — NF Paulista e incentivos fiscais</strong>
-          Mudanças no programa de doação via Nota Fiscal Paulista (MACFSP) e potenciais alterações nos incentivos fiscais para doações podem reduzir canais historicamente importantes para captação de OSCs paulistas.
-        </p>
-      </div>
-
-      <div class="threat-item">
-        <div class="icon-circle ic-red">🔥</div>
-        <p>
-          <strong>Competição acirrada e comoditização digital</strong>
-          A proliferação de plataformas de crowdfunding, fintechs de doação e ferramentas de self-service reduz barreiras de entrada e pode pressionar margens de empresas de captação. ONGs maiores tendem a internalizar soluções tech.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-</div><!-- /container -->
-
-<!-- FOOTER -->
+<!-- ══════════════════ FOOTER ══════════════════════ -->
 <footer>
+  <div class="footer-logo">TIME Captação</div>
   <p>Gerado automaticamente por <strong>TIME Captação Intelligence</strong></p>
-  <p>Publicado em 13 de maio de 2026 às 00:00 BRT</p>
-  <p style="margin-top:10px; font-size:12px; opacity:.6;">
-    Fontes: IDIS · IPEA · ABCR · Salesforce · GoFundMe Pro · Independent Sector · CEP · GEO · FundsForNGOs · Observatório 3º Setor · Filantropia.ong · Trackmob · Doare · MACFSP
-  </p>
+  <p style="margin-top:6px;font-size:12px;opacity:0.6;">Publicado em 19 de maio de 2026 · Próxima edição: semana 1 de junho de 2026</p>
+  <p style="margin-top:10px;font-size:11px;opacity:0.45;">Os dados apresentados são baseados em fontes públicas disponíveis até a data de publicação.</p>
 </footer>
 
 </body>
